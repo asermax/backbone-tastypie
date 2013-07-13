@@ -106,8 +106,8 @@
 		// If there's no idAttribute, use the 'urlRoot'. Fallback to try to have the collection construct a url.
 		// Explicitly add the 'id' attribute if the model has one.
 		if ( !url ) {
-			url = _.isFunction( this.urlRoot ) ? this.urlRoot() : this.urlRoot;
-			url = url || this.collection && ( _.isFunction( this.collection.url ) ? this.collection.url() : this.collection.url );
+			url = _.result(this, urlRoot);
+			url = url || this.collection && ( _.result(this.collection, urlRoot);
 
 			if ( url && this.has( 'id' ) ) {
 				url = addSlash( url ) + this.get( 'id' );
@@ -139,11 +139,11 @@
 	};
 
 	Backbone.Collection.prototype.url = function( models ) {
-		var url = _.isFunction( this.urlRoot ) ? this.urlRoot() : this.urlRoot;
+		var url = _.result(this, urlRoot);
 		// If the collection doesn't specify an url, try to obtain one from a model in the collection
 		if ( !url ) {
 			var model = models && models.length && models[ 0 ];
-			url = model && ( _.isFunction( model.urlRoot ) ? model.urlRoot() : model.urlRoot );
+			url = model && ( _.result(model, urlRoot);
 		}
 		url = url && addSlash( url );
 
